@@ -11,6 +11,7 @@ authors:
 repository-code: "https://github.com/chethandvg/dynamics-core"
 url: "https://chethandvg.github.io/frequencies-of-life/repos/dynamics-core/"
 license: Apache-2.0
+doi: 10.5281/zenodo.24038470
 version: 0.1.0
 date-released: "2026-11-07"
 keywords:
