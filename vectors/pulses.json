@@ -1,0 +1,341 @@
+{
+  "schema": "golden-vectors@1",
+  "description": "Periodic pulses: peaks, the steady state and the summation ratio.",
+  "tolerance": {
+    "rel": 1e-13,
+    "abs": 0.0
+  },
+  "cases": [
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        600.0,
+        75.0,
+        1
+      ],
+      "expected": 1.0,
+      "note": "the first peak is h"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        600.0,
+        75.0,
+        2
+      ],
+      "expected": 1.0003354626279024,
+      "note": "1 + e^-8: the second spike barely adds"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        600.0,
+        75.0,
+        12
+      ],
+      "expected": 1.0003355752008412,
+      "note": "12 spikes, as in the egg model"
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        37.5,
+        75.0,
+        2
+      ],
+      "expected": 1.6065306597126334
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        37.5,
+        75.0,
+        5
+      ],
+      "expected": 2.3328755442691183
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        37.5,
+        75.0,
+        10
+      ],
+      "expected": 2.524369630110176
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        37.5,
+        75.0,
+        50
+      ],
+      "expected": 2.541494082501502
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        0.3,
+        1.0,
+        75.0,
+        100
+      ],
+      "expected": 16.679770288572108,
+      "note": "pulses much faster than the time constant"
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        1e-09,
+        1.0,
+        1000
+      ],
+      "expected": 999.9995005001664,
+      "note": "almost no decay: close to n·h"
+    },
+    {
+      "claim": "dynamics:PEAK-AFTER-N",
+      "fn": "peak_after_pulses",
+      "args": [
+        2.0,
+        1e-30,
+        1.0,
+        7
+      ],
+      "expected": 14.0,
+      "note": "no decay at all in f64: exactly 14"
+    },
+    {
+      "claim": "dynamics:STEADY-STATE",
+      "fn": "steady_state_peak",
+      "args": [
+        1.0,
+        600.0,
+        75.0
+      ],
+      "expected": 1.0003355752008412,
+      "note": "1 / (1 - e^-8)"
+    },
+    {
+      "claim": "dynamics:STEADY-STATE",
+      "fn": "steady_state_peak",
+      "args": [
+        1.0,
+        37.5,
+        75.0
+      ],
+      "expected": 2.5414940825367984
+    },
+    {
+      "claim": "dynamics:STEADY-STATE",
+      "fn": "steady_state_peak",
+      "args": [
+        2.0,
+        1.0,
+        100.0
+      ],
+      "expected": 201.0016666638889
+    },
+    {
+      "claim": "dynamics:STEADY-STATE",
+      "fn": "steady_state_peak",
+      "args": [
+        1.0,
+        1e-06,
+        1.0
+      ],
+      "expected": 1000000.5000000834,
+      "note": "period a millionth of tau: about 1e6"
+    },
+    {
+      "claim": "dynamics:STEADY-STATE",
+      "fn": "steady_state_peak",
+      "args": [
+        1e-20,
+        1e-320,
+        1.0
+      ],
+      "expected": 1.0000111329412579e+300,
+      "note": "the summation ratio alone overflows; h/(1 - r) does not"
+    },
+    {
+      "claim": "dynamics:STEADY-TROUGH",
+      "fn": "steady_state_trough",
+      "args": [
+        1.0,
+        600.0,
+        75.0
+      ],
+      "expected": 0.00033557520084124496,
+      "note": "e^-8 / (1 - e^-8)"
+    },
+    {
+      "claim": "dynamics:STEADY-TROUGH",
+      "fn": "steady_state_trough",
+      "args": [
+        1.0,
+        37.5,
+        75.0
+      ],
+      "expected": 1.5414940825367982
+    },
+    {
+      "claim": "dynamics:STEADY-TROUGH",
+      "fn": "steady_state_trough",
+      "args": [
+        2.0,
+        1.0,
+        100.0
+      ],
+      "expected": 199.0016666638889
+    },
+    {
+      "claim": "dynamics:STEADY-TROUGH",
+      "fn": "steady_state_trough",
+      "args": [
+        1e+300,
+        750.0,
+        1.0
+      ],
+      "expected": 1.9016849634750064e-26,
+      "note": "r = e^-750 alone is 0 in f64"
+    },
+    {
+      "claim": "dynamics:STEADY-TROUGH",
+      "fn": "steady_state_trough",
+      "args": [
+        1e-20,
+        1e-320,
+        1.0
+      ],
+      "expected": 1.0000111329412579e+300,
+      "note": "about h·τ/T, as T/τ is tiny"
+    },
+    {
+      "claim": "dynamics:STEADY-TROUGH",
+      "fn": "steady_state_trough",
+      "args": [
+        2.3e-316,
+        1e-08,
+        1.0
+      ],
+      "expected": 2.2999999756206256e-308,
+      "note": "a subnormal h, divided once: a normal result with all its digits"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "summation_ratio",
+      "args": [
+        600.0,
+        75.0
+      ],
+      "expected": 1.0003355752008412,
+      "note": "below 1.0004"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "summation_ratio",
+      "args": [
+        2100.0,
+        75.0
+      ],
+      "expected": 1.0000000000006914,
+      "note": "1 + 7e-13"
+    },
+    {
+      "claim": "dynamics:SUMMATION-MONOTONE",
+      "fn": "summation_ratio",
+      "args": [
+        75.0,
+        75.0
+      ],
+      "expected": 1.5819767068693265,
+      "note": "one pulse per time constant: 1.58"
+    },
+    {
+      "claim": "dynamics:SUMMATION-MONOTONE",
+      "fn": "summation_ratio",
+      "args": [
+        7.5,
+        75.0
+      ],
+      "expected": 10.50833194477505,
+      "note": "ten pulses per time constant: 10.5"
+    },
+    {
+      "claim": "dynamics:SUMMATION-MONOTONE",
+      "fn": "summation_ratio",
+      "args": [
+        1e-08,
+        1.0
+      ],
+      "expected": 100000000.5,
+      "note": "about 1e8"
+    },
+    {
+      "claim": "dynamics:SUMMATION-MONOTONE",
+      "fn": "summation_ratio",
+      "args": [
+        1000.0,
+        1.0
+      ],
+      "expected": 1.0,
+      "note": "1 + e^-1000 is 1 in f64"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        0.0016666666666666668,
+        75.0
+      ],
+      "expected": 1.0003355752008412,
+      "note": "1/600 Hz, through rhythm-units"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        0.0004761904761904762,
+        75.0
+      ],
+      "expected": 1.0000000000006914
+    },
+    {
+      "claim": "dynamics:SUMMATION-AT-HZ",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        1.0,
+        0.5
+      ],
+      "expected": 1.1565176427496657
+    },
+    {
+      "claim": "dynamics:SUMMATION-AT-HZ",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        10.0,
+        75.0
+      ],
+      "expected": 750.5001111111078,
+      "note": "10 Hz pulses add up 750 times"
+    }
+  ]
+}

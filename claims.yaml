@@ -1,0 +1,115 @@
+# Claims ledger for dynamics-core (schema evidence-kernel/claims@1, https://github.com/chethandvg/evidence-kernel).
+# Levels: P proved in Lean · V verified numerics · T tested · R referenced (DOI/PMID) · M model assumption.
+schema: evidence-kernel/claims@1
+repo: dynamics-core
+prefix: dynamics
+claims:
+  - id: dynamics:RELAX-COMPOSE
+    version: 1.0.0
+    level: P
+    statement: "Relaxing a leaky integrator for dt₁ and then for dt₂ is the same as relaxing it for dt₁ + dt₂: a·e^(−dt₁/τ)·e^(−dt₂/τ) = a·e^(−(dt₁+dt₂)/τ)."
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.relax_compose
+    tests: [vectors/relaxation.json, tests/properties.rs]
+  - id: dynamics:HALF-LIFE
+    version: 1.0.0
+    level: P
+    statement: "After one half-life, τ·ln 2, exactly half of the state is left."
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.decayFactor_halfLife
+    tests: [vectors/relaxation.json, tests/properties.rs]
+  - id: dynamics:PEAK-AFTER-N
+    version: 1.0.0
+    level: P
+    statement: "The peaks of pulses of size h with residual factor r per period, A(n+1) = A(n)·r + h with A(1) = h, have the closed form A(n) = h·(1 − rⁿ)/(1 − r) for every r ≠ 1."
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.peaks_closed_form
+    tests: [vectors/pulses.json, tests/properties.rs]
+    notes: "DynamicsCore.peakAfterPulses_eq_peaks shows that h·(1 − e^(−nT/τ))/(1 − e^(−T/τ)), the form peak_after_pulses computes, is the n-th peak with r = e^(−T/τ)."
+  - id: dynamics:STEADY-STATE
+    version: 1.0.0
+    level: P
+    statement: "For 0 ≤ r < 1 the peaks tend to the steady peak h/(1 − r) as the number of pulses grows."
+    depends_on: ["dynamics:PEAK-AFTER-N@1"]
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.peaks_tendsto
+    tests: [vectors/pulses.json, tests/properties.rs]
+  - id: dynamics:STEADY-TROUGH
+    version: 1.0.0
+    level: P
+    statement: "The steady peak h/(1 − r) is the fixed point of 'relax for one period, then add h', and relaxing it for one period gives the steady trough h·r/(1 − r)."
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.steady_state_fixed_point
+    tests: [vectors/pulses.json, tests/properties.rs]
+  - id: dynamics:PEAKS-INCREASE
+    version: 1.0.0
+    level: P
+    statement: "For h > 0 and 0 < r < 1 the peaks strictly increase with every pulse and always stay below the steady peak h/(1 − r)."
+    depends_on: ["dynamics:PEAK-AFTER-N@1"]
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.peaks_increase
+    tests: [tests/properties.rs]
+  - id: dynamics:FRACTION-REACHED
+    version: 1.0.0
+    level: P
+    statement: "For h > 0 and r < 1, the n-th peak reaches the fraction p of the steady peak exactly when rⁿ ≤ 1 − p."
+    depends_on: ["dynamics:PEAK-AFTER-N@1"]
+    proof: proofs/DynamicsCore/Basic.lean#DynamicsCore.fraction_reached
+    tests: [vectors/thresholds.json]
+  - id: dynamics:SUMMATION-MONOTONE
+    version: 1.0.0
+    level: P
+    statement: "For τ > 0 the summation ratio 1/(1 − e^(−T/τ)) strictly decreases as the period T > 0 grows and tends to 1 as T → ∞: pulses far apart stop adding up."
+    proof: proofs/DynamicsCore/Summation.lean#DynamicsCore.summation_monotone
+    tests: [vectors/pulses.json, tests/properties.rs]
+    notes: "The summation ratio is the steady peak of unit pulses (DynamicsCore.summationRatio_eq, by definition)."
+  - id: dynamics:HUMAN-SPIKES-BARELY-ADD-UP
+    version: 1.0.0
+    level: P
+    statement: "With τ = 75 s, spikes 10 minutes (600 s) apart leave r = e^(−8), and for every period of at least 600 s the summation ratio is between 1 and 1.0004: what is left of all earlier spikes adds at most 0.04 % to each peak."
+    depends_on: ["dynamics:SUMMATION-MONOTONE@1", "dynamics:TAU-75S@1"]
+    proof: proofs/DynamicsCore/Summation.lean#DynamicsCore.human_spikes_barely_add_up
+    tests: [vectors/relaxation.json, vectors/pulses.json]
+    notes: "The proof is about the arithmetic only: e^8 > 2501 from twelve Taylor terms. Its inputs are a model parameter (dynamics:TAU-75S) and the 10–35 min interval between calcium spikes reported in human eggs at fertilisation (bio:HUMAN-CA-SPIKE-INTERVAL@1 in biological-rhythms-dataset, from Taylor et al. 1993, doi:10.1093/oxfordjournals.humrep.a137999). The biology is referenced or assumed, not proved."
+  - id: dynamics:SPIKE-PEAK
+    version: 1.0.0
+    level: P
+    statement: "For rise, decay > 0 the spike shape (1 − e^(−s/rise))·e^(−s/decay) is largest at s* = rise·ln(1 + decay/rise) > 0, over every real s."
+    proof: proofs/DynamicsCore/Spike.lean#DynamicsCore.spike_peak
+    tests: [vectors/spikes.json, tests/properties.rs]
+  - id: dynamics:PULSES-TO-FRACTION-EXACT
+    version: 1.0.0
+    level: T
+    statement: "pulses_to_fraction(p, T, τ) returns the smallest n ≥ 1 with rⁿ ≤ 1 − p, deciding each candidate in double-double arithmetic. It matches a 400-digit reference on every case, including p one double either side of 1 − rⁿ, a subnormal period and an exact tie, where the floating-point formula ⌈ln(1 − p)/ln r⌉ can be off by one."
+    depends_on: ["dynamics:FRACTION-REACHED@1", "dynamics:PEAKS-INCREASE@1"]
+    tests: [vectors/thresholds.json, src/exact.rs, tests/properties.rs]
+    notes: "The double-double decision could only be wrong if 1 − e^(−n·T/τ) and p agreed to about 2^-100 relative; no input on which it fails is known (the tie p = T/τ = 2^-300 agrees far more closely and is decided correctly)."
+  - id: dynamics:SUMMATION-AT-HZ
+    version: 1.0.0
+    level: T
+    statement: "summation_ratio_at_hz(f, τ) is summation_ratio(1/f, τ), with the period computed by rhythm-units' period_from_hz."
+    depends_on: ["rhythm:FREQ-PERIOD-INVERSE@1"]
+    tests: [vectors/pulses.json, tests/properties.rs]
+  - id: dynamics:IMPLEMENTATIONS-AGREE
+    version: 1.0.0
+    level: T
+    statement: "The Rust crate, the Python bindings and the WebAssembly bindings all match golden vectors computed by an independent 400-digit decimal reference: within 1e-13 relative, and pulse counts exactly."
+    tests:
+      - vectors/relaxation.json
+      - vectors/pulses.json
+      - vectors/thresholds.json
+      - vectors/spikes.json
+      - tests/vectors.rs
+      - bindings/python/tests/test_vectors.py
+      - bindings/wasm/tests/vectors.test.mjs
+  - id: dynamics:INPUT-VALIDATION
+    version: 1.0.0
+    level: T
+    statement: "Every function rejects time constants, periods, pulse sizes and frequencies that are not finite and positive, elapsed times and states that are negative or not finite, p outside (0, 1), pulse counts that are not whole numbers of at least 1 (and, in JavaScript, counts above 2^53, which are never wrapped or truncated) and results that overflow or exceed 2^53 pulses; Python raises ValueError (TypeError for a count that is not an int, OverflowError for an int count outside the 64-bit range) and JavaScript throws an Error."
+    tests: [vectors/errors.json, tests/properties.rs, src/lib.rs, bindings/python/tests/test_vectors.py, bindings/wasm/tests/vectors.test.mjs]
+  - id: dynamics:TAU-75S
+    version: 1.0.0
+    level: M
+    statement: "The project's egg-activation model reads calcium spikes with a CaMKII-like leaky integrator whose time constant is 75 s."
+    assumption: "CaMKII activity in the egg relaxes like a linear leaky integrator with τ = 75 s (half-life 52 s), chosen so that it returns to baseline within about 5 minutes of a calcium rise, as reported for CaMKII in mouse eggs; e^(−300/75) leaves 1.8 % after 5 minutes. The 75 s is a chosen model parameter, not a fitted or measured time constant, and using it for human eggs assumes the mouse behaviour carries over."
+    value: {value: 75, unit: s}
+    species: "Mus musculus"
+    method: "Model parameter, chosen so that the integrator is back near baseline about 5 minutes after a calcium rise, as reported for CaMKII activity in mouse eggs"
+    sources:
+      - cite: "Markoulaki et al. 2003, Developmental Biology 258(2):464–474"
+        doi: "10.1016/s0012-1606(03)00133-7"
+    notes: "camkii_off_s = 75.0 in the project's earlier Python toolkit (egg_models.py). The 5-minute figure is taken from the project's report; whether Markoulaki et al. measured it after fertilisation or after induced Ca2+ pulses is still to be checked against the full text."

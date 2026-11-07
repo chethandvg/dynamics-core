@@ -1,0 +1,192 @@
+{
+  "schema": "golden-vectors@1",
+  "description": "Exponential relaxation: decay_factor, relax and half_life.",
+  "tolerance": {
+    "rel": 1e-13,
+    "abs": 0.0
+  },
+  "cases": [
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "decay_factor",
+      "args": [
+        0.0,
+        75.0
+      ],
+      "expected": 1.0,
+      "note": "no time, no decay"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "decay_factor",
+      "args": [
+        75.0,
+        75.0
+      ],
+      "expected": 0.36787944117144233,
+      "note": "one time constant: e^-1"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "decay_factor",
+      "args": [
+        600.0,
+        75.0
+      ],
+      "expected": 0.00033546262790251185,
+      "note": "r = e^-8 for spikes 10 minutes apart"
+    },
+    {
+      "claim": "dynamics:HUMAN-SPIKES-BARELY-ADD-UP",
+      "fn": "decay_factor",
+      "args": [
+        2100.0,
+        75.0
+      ],
+      "expected": 6.914400106940203e-13,
+      "note": "r = e^-28 for spikes 35 minutes apart"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "decay_factor",
+      "args": [
+        1.0,
+        1000000.0
+      ],
+      "expected": 0.9999990000005
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "decay_factor",
+      "args": [
+        1e-12,
+        1.0
+      ],
+      "expected": 0.999999999999
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "decay_factor",
+      "args": [
+        800.0,
+        1.0
+      ],
+      "expected": 0.0,
+      "note": "e^-800 is below every double: 0"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        2.5,
+        30.0,
+        75.0
+      ],
+      "expected": 1.6758001150890982,
+      "note": "30 s ..."
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        2.5,
+        45.0,
+        75.0
+      ],
+      "expected": 1.372029090235066,
+      "note": "... then 45 s more ..."
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        2.5,
+        75.0,
+        75.0
+      ],
+      "expected": 0.9196986029286058,
+      "note": "... is the same as 75 s at once"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        0.0,
+        5.0,
+        1.0
+      ],
+      "expected": 0.0,
+      "note": "an empty integrator stays empty"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        1e+300,
+        1.0,
+        1.0
+      ],
+      "expected": 3.678794411714423e+299
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        1e+300,
+        750.0,
+        1.0
+      ],
+      "expected": 1.9016849634750064e-26,
+      "note": "e^-750 alone is 0 in f64, but the state left, 1.9e-26, is not"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        10000000000.0,
+        720.0,
+        1.0
+      ],
+      "expected": 2.032230802424293e-303,
+      "note": "e^-720 alone is subnormal, but the state left is a normal double"
+    },
+    {
+      "claim": "dynamics:RELAX-COMPOSE",
+      "fn": "relax",
+      "args": [
+        1e+300,
+        1600.0,
+        1.0
+      ],
+      "expected": 0.0,
+      "note": "below every double: 0"
+    },
+    {
+      "claim": "dynamics:HALF-LIFE",
+      "fn": "half_life",
+      "args": [
+        75.0
+      ],
+      "expected": 51.986038541995896,
+      "note": "75·ln 2 = 51.99 s"
+    },
+    {
+      "claim": "dynamics:HALF-LIFE",
+      "fn": "half_life",
+      "args": [
+        1.0
+      ],
+      "expected": 0.6931471805599453
+    },
+    {
+      "claim": "dynamics:HALF-LIFE",
+      "fn": "decay_factor",
+      "args": [
+        51.986038541995896,
+        75.0
+      ],
+      "expected": 0.5,
+      "note": "halves after one half-life"
+    }
+  ]
+}

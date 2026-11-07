@@ -1,0 +1,132 @@
+{
+  "schema": "golden-vectors@1",
+  "description": "The spike shape and its peak time.",
+  "tolerance": {
+    "rel": 1e-13,
+    "abs": 0.0
+  },
+  "cases": [
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_peak_time",
+      "args": [
+        15.0,
+        60.0
+      ],
+      "expected": 24.141568686511505,
+      "note": "the egg model's human spike: 15·ln 5 = 24.14 s"
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_peak_time",
+      "args": [
+        5.0,
+        25.0
+      ],
+      "expected": 8.958797346140274,
+      "note": "the egg model's mouse spike: 5·ln 6 = 8.96 s"
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_peak_time",
+      "args": [
+        1.0,
+        1.0
+      ],
+      "expected": 0.6931471805599453,
+      "note": "ln 2"
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_peak_time",
+      "args": [
+        60.0,
+        15.0
+      ],
+      "expected": 13.388613078852586
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_peak_time",
+      "args": [
+        1e+300,
+        1e-10
+      ],
+      "expected": 1e-10,
+      "note": "decay/rise is subnormal: the peak time is decay"
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_peak_time",
+      "args": [
+        1e-300,
+        1e+300
+      ],
+      "expected": 1.3815510557964275e-297,
+      "note": "decay/rise overflows"
+    },
+    {
+      "claim": "dynamics:IMPLEMENTATIONS-AGREE",
+      "fn": "spike_shape",
+      "args": [
+        0.0,
+        15.0,
+        60.0
+      ],
+      "expected": 0.0,
+      "note": "a spike starts at 0"
+    },
+    {
+      "claim": "dynamics:IMPLEMENTATIONS-AGREE",
+      "fn": "spike_shape",
+      "args": [
+        15.0,
+        15.0,
+        60.0
+      ],
+      "expected": 0.4922959862112148
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_shape",
+      "args": [
+        24.141568686511505,
+        15.0,
+        60.0
+      ],
+      "expected": 0.5349922439811376,
+      "note": "the top: 0.8·5^-0.25 = 0.535"
+    },
+    {
+      "claim": "dynamics:IMPLEMENTATIONS-AGREE",
+      "fn": "spike_shape",
+      "args": [
+        120.0,
+        15.0,
+        60.0
+      ],
+      "expected": 0.1352898833068502
+    },
+    {
+      "claim": "dynamics:IMPLEMENTATIONS-AGREE",
+      "fn": "spike_shape",
+      "args": [
+        10000.0,
+        15.0,
+        60.0
+      ],
+      "expected": 4.14559001356409e-73,
+      "note": "long after: e^-166.7"
+    },
+    {
+      "claim": "dynamics:SPIKE-PEAK",
+      "fn": "spike_shape",
+      "args": [
+        8.958797346140274,
+        5.0,
+        25.0
+      ],
+      "expected": 0.5823559323096493
+    }
+  ]
+}

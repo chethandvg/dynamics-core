@@ -1,0 +1,396 @@
+{
+  "schema": "golden-vectors@1",
+  "description": "Invalid input is rejected with an error in every binding.",
+  "tolerance": {
+    "rel": 1e-13,
+    "abs": 0.0
+  },
+  "cases": [
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "decay_factor",
+      "args": [
+        -1.0,
+        75.0
+      ],
+      "error": true,
+      "note": "dt must be >= 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "decay_factor",
+      "args": [
+        1.0,
+        0.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "decay_factor",
+      "args": [
+        1.0,
+        -75.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "relax",
+      "args": [
+        -0.5,
+        1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "a state must be >= 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "relax",
+      "args": [
+        1.0,
+        -1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "dt must be >= 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "half_life",
+      "args": [
+        0.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "half_life",
+      "args": [
+        -75.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "peak_after_pulses",
+      "args": [
+        0.0,
+        600.0,
+        75.0,
+        3
+      ],
+      "error": true,
+      "note": "h must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        0.0,
+        75.0,
+        3
+      ],
+      "error": true,
+      "note": "the period must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        600.0,
+        0.0,
+        3
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        600.0,
+        75.0,
+        0
+      ],
+      "error": true,
+      "note": "counting starts at the first pulse"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "peak_after_pulses",
+      "args": [
+        1.0,
+        600.0,
+        75.0,
+        -2
+      ],
+      "error": true,
+      "note": "counting starts at the first pulse"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "peak_after_pulses",
+      "args": [
+        1e+300,
+        1e-09,
+        1.0,
+        1000000000
+      ],
+      "error": true,
+      "note": "the peak overflows"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "steady_state_peak",
+      "args": [
+        -1.0,
+        1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "h must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "steady_state_peak",
+      "args": [
+        1e+300,
+        1e-09,
+        1.0
+      ],
+      "error": true,
+      "note": "the steady peak overflows"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "steady_state_trough",
+      "args": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "error": true,
+      "note": "the period must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio",
+      "args": [
+        0.0,
+        75.0
+      ],
+      "error": true,
+      "note": "the period must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio",
+      "args": [
+        600.0,
+        -75.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio",
+      "args": [
+        1e-320,
+        1.0
+      ],
+      "error": true,
+      "note": "1 / (1 - r) overflows"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        0.0,
+        75.0
+      ],
+      "error": true,
+      "note": "hz must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        -1.0,
+        75.0
+      ],
+      "error": true,
+      "note": "hz must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        1e-310,
+        75.0
+      ],
+      "error": true,
+      "note": "the period 1/hz overflows"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "summation_ratio_at_hz",
+      "args": [
+        1.0,
+        0.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "p must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "the steady state itself is never reached"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        -0.5,
+        1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "p must be in (0, 1)"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        1.5,
+        1.0,
+        1.0
+      ],
+      "error": true,
+      "note": "p must be in (0, 1)"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.5,
+        0.0,
+        1.0
+      ],
+      "error": true,
+      "note": "the period must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.5,
+        1.0,
+        -1.0
+      ],
+      "error": true,
+      "note": "tau must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.999999,
+        1e-15,
+        1.0
+      ],
+      "error": true,
+      "note": "1.4e16 pulses: more than 2^53"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.5,
+        1e-300,
+        1.0
+      ],
+      "error": true,
+      "note": "far more than 2^53 pulses"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "spike_shape",
+      "args": [
+        -1.0,
+        15.0,
+        60.0
+      ],
+      "error": true,
+      "note": "s must be >= 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "spike_shape",
+      "args": [
+        1.0,
+        0.0,
+        60.0
+      ],
+      "error": true,
+      "note": "rise must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "spike_shape",
+      "args": [
+        1.0,
+        15.0,
+        -60.0
+      ],
+      "error": true,
+      "note": "decay must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "spike_peak_time",
+      "args": [
+        0.0,
+        60.0
+      ],
+      "error": true,
+      "note": "rise must be > 0"
+    },
+    {
+      "claim": "dynamics:INPUT-VALIDATION",
+      "fn": "spike_peak_time",
+      "args": [
+        15.0,
+        0.0
+      ],
+      "error": true,
+      "note": "decay must be > 0"
+    }
+  ]
+}

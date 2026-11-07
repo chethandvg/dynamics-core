@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it using these metadata."
+type: software
+title: "Dynamics core"
+abstract: "Leaky integrators and periodic pulses, with Lean 4 proofs of when repeated pulses add up and when they are forgotten."
+authors:
+  - given-names: "Chethan"
+    family-names: "Dandebala Venkatarama"
+    alias: "chethandvg"
+    orcid: "https://orcid.org/0009-0006-6099-343X"
+repository-code: "https://github.com/chethandvg/dynamics-core"
+url: "https://chethandvg.github.io/frequencies-of-life/repos/dynamics-core/"
+license: Apache-2.0
+version: 0.1.0
+date-released: "2026-11-07"
+keywords:
+  - dynamics
+  - leaky-integrator
+  - lean4
+  - formal-verification
+  - calcium-signalling

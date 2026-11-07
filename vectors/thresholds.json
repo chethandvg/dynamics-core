@@ -1,0 +1,304 @@
+{
+  "schema": "golden-vectors@1",
+  "description": "pulses_to_fraction, exact at the boundaries.",
+  "tolerance": {
+    "rel": 0.0,
+    "abs": 0.0
+  },
+  "cases": [
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9,
+        37.5,
+        75.0
+      ],
+      "expected": 5,
+      "note": "pulses every τ/2 pass 90 % at the fifth"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.5,
+        600.0,
+        75.0
+      ],
+      "expected": 1,
+      "note": "the first human spike already gives 99.97 %"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.99,
+        1.0,
+        75.0
+      ],
+      "expected": 346
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.632,
+        75.0,
+        75.0
+      ],
+      "expected": 1,
+      "note": "1 - e^-1 = 0.63212 > 0.632"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.999999,
+        1.0,
+        1000.0
+      ],
+      "expected": 13816
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.5,
+        1e-10,
+        1.0
+      ],
+      "expected": 6931471806,
+      "note": "about 6.9 billion pulses"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        1e-300,
+        1.0,
+        1.0
+      ],
+      "expected": 1
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        1e-300,
+        1e-310,
+        1.0
+      ],
+      "expected": 10000000001,
+      "note": "a subnormal period: about 1e10 pulses"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        4.909093465297727e-91,
+        4.909093465297727e-91,
+        1.0
+      ],
+      "expected": 2,
+      "note": "an exact tie, T/τ = p: one pulse gives 1 - e^-p < p, so two are needed"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.917915001376101,
+        37.5,
+        75.0
+      ],
+      "expected": 5,
+      "note": "p just below 1 - r^5 for T/τ = 37.5/75.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9179150013761012,
+        37.5,
+        75.0
+      ],
+      "expected": 5,
+      "note": "p the double nearest 1 - r^5 for T/τ = 37.5/75.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9179150013761013,
+        37.5,
+        75.0
+      ],
+      "expected": 6,
+      "note": "p just above 1 - r^5 for T/τ = 37.5/75.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9996645373720974,
+        600.0,
+        75.0
+      ],
+      "expected": 1,
+      "note": "p just below 1 - r^1 for T/τ = 600.0/75.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9996645373720975,
+        600.0,
+        75.0
+      ],
+      "expected": 1,
+      "note": "p the double nearest 1 - r^1 for T/τ = 600.0/75.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9996645373720976,
+        600.0,
+        75.0
+      ],
+      "expected": 2,
+      "note": "p just above 1 - r^1 for T/τ = 600.0/75.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9030280321355948,
+        1.0,
+        3.0
+      ],
+      "expected": 7,
+      "note": "p just below 1 - r^7 for T/τ = 1.0/3.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.9030280321355949,
+        1.0,
+        3.0
+      ],
+      "expected": 7,
+      "note": "p the double nearest 1 - r^7 for T/τ = 1.0/3.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.903028032135595,
+        1.0,
+        3.0
+      ],
+      "expected": 8,
+      "note": "p just above 1 - r^7 for T/τ = 1.0/3.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.8646647167633872,
+        0.1,
+        1.0
+      ],
+      "expected": 20,
+      "note": "p just below 1 - r^20 for T/τ = 0.1/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.8646647167633873,
+        0.1,
+        1.0
+      ],
+      "expected": 20,
+      "note": "p the double nearest 1 - r^20 for T/τ = 0.1/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.8646647167633874,
+        0.1,
+        1.0
+      ],
+      "expected": 21,
+      "note": "p just above 1 - r^20 for T/τ = 0.1/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.0029955044966270238,
+        0.001,
+        1.0
+      ],
+      "expected": 3,
+      "note": "p just below 1 - r^3 for T/τ = 0.001/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.002995504496627024,
+        0.001,
+        1.0
+      ],
+      "expected": 4,
+      "note": "p the double nearest 1 - r^3 for T/τ = 0.001/1.0; the floating-point formula gives 3"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.0029955044966270246,
+        0.001,
+        1.0
+      ],
+      "expected": 4,
+      "note": "p just above 1 - r^3 for T/τ = 0.001/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.4999999097200191,
+        1e-06,
+        1.0
+      ],
+      "expected": 693147,
+      "note": "p just below 1 - r^693147 for T/τ = 1e-06/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.4999999097200192,
+        1e-06,
+        1.0
+      ],
+      "expected": 693147,
+      "note": "p the double nearest 1 - r^693147 for T/τ = 1e-06/1.0"
+    },
+    {
+      "claim": "dynamics:PULSES-TO-FRACTION-EXACT",
+      "fn": "pulses_to_fraction",
+      "args": [
+        0.49999990972001923,
+        1e-06,
+        1.0
+      ],
+      "expected": 693148,
+      "note": "p just above 1 - r^693147 for T/τ = 1e-06/1.0"
+    }
+  ]
+}
