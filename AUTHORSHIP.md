@@ -18,6 +18,7 @@ These decisions by the author shape every Frequencies of Life repository.
 
 | Date | Decision |
 |---|---|
+| 2026-11-07 | `dynamics:TAU-75S` stays a model assumption (M) citing Markoulaki et al. 2003, marked as not yet checked against the paper's full text, which is not freely available; revisit if it becomes available. |
 
 ## Review log
 
